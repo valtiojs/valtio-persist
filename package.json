@@ -1,0 +1,173 @@
+{
+  "name": "valtio-persist",
+  "description": "Persist valtio state",
+  "version": "0.0.0",
+  "type": "module",
+  "author": "Michael Sweeney <overthemike@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valtiojs/valtio-persist.git"
+  },
+  "source": "/src/index.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./async-storage": {
+      "require": {
+        "types": "./dist/storage/asyncStorage.d.ts",
+        "default": "./dist/storage/asyncStorage.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/asyncStorage.d.ts",
+        "default": "./dist/storage/asyncStorage.js"
+      }
+    },
+    "./expo-file-system": {
+      "require": {
+        "types": "./dist/storage/expoFileSystem.d.ts",
+        "default": "./dist/storage/expoFileSystem.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/expoFileSystem.d.ts",
+        "default": "./dist/storage/expoFileSystem.js"
+      }
+    },
+    "./extension-storage": {
+      "require": {
+        "types": "./dist/storage/extensionStorage.d.ts",
+        "default": "./dist/storage/extensionStorage.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/extensionStorage.d.ts",
+        "default": "./dist/storage/extensionStorage.js"
+      }
+    },
+    "./file-system-api": {
+      "require": {
+        "types": "./dist/storage/fileSystemApi.d.ts",
+        "default": "./dist/storage/fileSystemApi.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/fileSystemApi.d.ts",
+        "default": "./dist/storage/fileSystemApi.js"
+      }
+    },
+    "./indexed-db": {
+      "require": {
+        "types": "./dist/storage/indexDb.d.ts",
+        "default": "./dist/storage/indexDb.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/indexDb.d.ts",
+        "default": "./dist/storage/indexDb.js"
+      }
+    },
+    "./multi-file": {
+      "require": {
+        "types": "./dist/storage/multiFile.d.ts",
+        "default": "./dist/storage/multiFile.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/multiFile.d.ts",
+        "default": "./dist/storage/multiFile.js"
+      }
+    },
+    "./secure-storage": {
+      "require": {
+        "types": "./dist/storage/secureStorage.d.ts",
+        "default": "./dist/storage/secureStorage.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/secureStorage.d.ts",
+        "default": "./dist/storage/secureStorage.js"
+      }
+    },
+    "./single-file": {
+      "require": {
+        "types": "./dist/storage/singleFile.d.ts",
+        "default": "./dist/storage/singleFile.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/singleFile.d.ts",
+        "default": "./dist/storage/singleFile.js"
+      }
+    },
+    "./sqlite": {
+      "require": {
+        "types": "./dist/storage/sqlLite.d.ts",
+        "default": "./dist/storage/sqlLite.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/sqlLite.d.ts",
+        "default": "./dist/storage/sqlLite.js"
+      }
+    }
+  },
+  "tsup": {
+    "entry": [
+      "src/index.ts",
+      "src/storage/asyncStorage.ts",
+      "src/storage/expoFileSystem.ts",
+      "src/storage/extensionStorage.ts",
+      "src/storage/fileSystemApi.ts",
+      "src/storage/indexDb.ts",
+      "src/storage/multiFile.ts",
+      "src/storage/secureStorage.ts",
+      "src/storage/singleFile.ts",
+      "src/storage/sqlLite.ts"
+    ],
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "dts": true,
+    "splitting": false,
+    "sourcemap": true,
+    "clean": true
+  },
+  "scripts": {
+    "test": "vitest run",
+    "build": "tsup",
+    "prepublishOnly": "npm run build",
+    "bench": "vitest bench",
+    "coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "directories": {
+    "test": "tests"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/valtiojs/valtio-persist/issues"
+  },
+  "homepage": "https://github.com/valtiojs/valtio-persist#readme",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/node": "^22.13.14",
+    "@vitest/coverage-v8": "3.0.9",
+    "react": "^19.1.0",
+    "tsup": "^8.4.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.5",
+    "vitest": "^3.0.9"
+  },
+  "dependencies": {
+    "proxy-compare": "^3.0.1",
+    "valtio": "^2.1.4"
+  }
+}

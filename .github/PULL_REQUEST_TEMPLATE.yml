@@ -1,26 +1,25 @@
-template_dir: PULL_REQUEST_TEMPLATE
 templates:
   - name: Feature
-    filename: feature.md
     about: Submit a new feature
+    filename: PULL_REQUEST_TEMPLATE/feature.md
   - name: Bug fix
-    filename: bugfix.md
     about: Submit a bug fix
+    filename: PULL_REQUEST_TEMPLATE/bugfix.md
   - name: Performance improvement
-    filename: performance.md
     about: Submit a performance improvement
+    filename: PULL_REQUEST_TEMPLATE/performance.md
   - name: Refactoring
-    filename: refactoring.md
     about: Submit a code refactoring
+    filename: PULL_REQUEST_TEMPLATE/refactoring.md
   - name: Documentation
-    filename: documentation.md
     about: Submit documentation changes
+    filename: PULL_REQUEST_TEMPLATE/documentation.md
   - name: Dependency update
-    filename: dependency.md
     about: Submit dependency updates
+    filename: PULL_REQUEST_TEMPLATE/dependency.md
   - name: CI/CD changes
-    filename: ci_cd.md
     about: Submit CI/CD pipeline changes
+    filename: PULL_REQUEST_TEMPLATE/ci_cd.md
   - name: Configuration changes
-    filename: config.md
     about: Submit configuration changes
+    filename: PULL_REQUEST_TEMPLATE/config.md

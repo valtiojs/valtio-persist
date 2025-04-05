@@ -1,5 +1,5 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
   - name: Project Documentation
     url: https://github.com/valtiojs/valtio-persist/#readme
-    about: Check our documentation for guides on contributing.\
+    about: Check our documentation for guides on contributing.

@@ -71,21 +71,21 @@ const { store: localStore } = persist(
 )
 ```
 
-LocalStorageStrategy is the default and is provided within the main `valtio-persist` bundle along with `SessionStorageStrategy` and `MemoryStoragStrategey` (useful for testing), but there are many others provided that are not included in the main `valtio-persist` bundle. To use them, you need to import them separately.
+LocalStorageStrategy is the default and is provided within the main `valtio-persist` bundle along with `SessionStorageStrategy` and `MemoryStoragStrategey` (useful for testing). Other strategies are imported separately. Many of these are still in development. See <a href="#future-additions">Future Additions</a>.
 
 ```typescript
 import { persist } from 'valtio-persist'
-import { AsyncStorageStrategy } from 'valtio-persist/async-storage'
+import { IndexedDbStrategy } from 'valtio-persist/indexed-db'
 
 const { store } = persist(
   { count: 0 },
-  'my-async-store',
-  { storageStrategy: AsyncStorageStrategy }
+  'my-indexdb-store',
+  { storageStrategy: IndexedDbStrategy }
 )
 ```
 
 
-Here are the different ones included and their paths:
+Current list of available storage strategies. You can find others that are still in development in <a href="#future-additions">Future Additions</a>
 <table>
   <thead>
     <tr><th>Exported Name</th><th>Import syntax</th></tr>
@@ -102,7 +102,7 @@ Here are the different ones included and their paths:
 
 
 ### Merge Strategies
-
+Choose how to merge stored state with the initialState.
 ```typescript
 import { persist } from 'valtio-persist'
 import { DefaultMergeStrategy, DeepMergeStrategy } from 'valtio-persist'
@@ -123,7 +123,7 @@ const { store: deepStore } = persist(
 ```
 
 ### Custom Serialization
-
+You can customize how to handle serialization and deserialization.
 ```typescript
 import { persist } from 'valtio-persist'
 import type { SerializationStrategy } from 'valtio-persist'
@@ -166,7 +166,7 @@ const { store } = persist(
 ```
 
 ### Debounce Persistence
-
+>> Note: This is not recommended for file writes. Consider throttling instead.
 ```typescript
 import { persist } from 'valtio-persist'
 
@@ -179,7 +179,7 @@ const { store } = persist(
 ```
 
 ### Manual Control
-
+Restoration and persistence are automatically handled for you, but you can manually invoke them as well.
 ```typescript
 import { persist } from 'valtio-persist'
 
@@ -204,7 +204,7 @@ await clear()
 
 ### Options Object Format
 
-You can also provide options in a single object:
+
 
 ```typescript
 import { persist } from 'valtio-persist'
@@ -212,8 +212,8 @@ import { SessionStorageStrategy, DeepMergeStrategy } from 'valtio-persist'
 
 const { store } = persist(
   { count: 0 },
+  'storage-key',
   {
-    key: 'options-store',
     storageStrategy: SessionStorageStrategy,
     mergeStrategy: DeepMergeStrategy,
     debounceTime: 200,

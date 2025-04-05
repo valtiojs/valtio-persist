@@ -166,7 +166,7 @@ const { store } = persist(
 ```
 
 ### Debounce Persistence
->> Note: This is not recommended for file writes. Consider throttling instead.
+>> Note: This is not recommended for file writes. Consider <a href="https://lodash.com/docs/#throttle">throttling</a> instead.
 ```typescript
 import { persist } from 'valtio-persist'
 
@@ -203,8 +203,6 @@ await clear()
 ```
 
 ### Options Object Format
-
-
 
 ```typescript
 import { persist } from 'valtio-persist'

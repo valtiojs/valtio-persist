@@ -95,15 +95,8 @@ Here are the different ones included and their paths:
     <tr><td>session-storage</td><td><pre><code class="language-typescript">import { SessionStorageStrategy } from 'valtio-persist'</code></pre></td></tr>
     <tr><td>memory-storage</td><td><pre><code class="language-typescript">import { MemoryStorageStrategy } from 'valtio-persist'</code></pre></td></tr>
     <tr><td colspan='2'><i>The items below are not included in the `valtio-persist` bundle</i></td></tr>
-    <tr><td>async-storage</td><td><pre><code class="language-typescript">import { AsyncStorageStrategy } from 'valtio-persist/async-storage'</code></pre></td></tr>
-    <tr><td>expo-file-system</td><td><pre><code class="language-typescript">import { ExpoFileSystemStrategy } from 'valtio-persist/expo-file-system'</code></pre></td></tr>
-    <tr><td>extension-storage</td><td><pre><code class="language-typescript">import { ExtensionStorageStrategy } from 'valtio-persist/extension-storage'</code></pre></td></tr>
-    <tr><td>file-system-api</td><td><pre><code class="language-typescript">import { FileSystemApiStrategy } from 'valtio-persist/file-system-api'</code></pre></td></tr>
     <tr><td>indexed-db</td><td><pre><code class="language-typescript">import { IndexedDBStrategy } from 'valtio-persist/indexed-db'</code></pre></td></tr>
-    <tr><td>single-file</td><td><pre><code class="language-typescript">import { SingleFileStrategy } from 'valtio-persist/single-file'</code></pre></td></tr>
-    <tr><td>multi-file</td><td><pre><code class="language-typescript">import { MultiFileStrategy } from 'valtio-persist/multi-file'</code></pre></td></tr>
-    <tr><td>secure-storage</td><td><pre><code class="language-typescript">import { SecureStorageStrategy } from 'valtio-persist/secure-storage'</code></pre></td></tr>
-    <tr><td>sqllite</td><td><pre><code class="language-typescript">import { SQLiteStrategy } from 'valtio-persist/sqllite'</code></pre></td></tr>
+    <tr><td colspan='2'><i>Many more coming! See <a href="#future-additions">Future Additions</a></i></td></tr>
   </tbody>
 </table>
 
@@ -263,6 +256,25 @@ store.preferences.theme = 'dark' // ✅
 store.preferences.theme = 'blue' // ❌ Type error
 ```
 
+## Future additions
+We have many new storage strategies already in the works and would love the help of the community (that's you) to both test and develop them. Each of the items below already has it's own branch. Contributions are most welcome!
+
+[async-storage](/tree/async-storage) - React Native persistent key-value storage system for mobile apps.
+
+[expo-file-system](/tree/expo-file-system) - File-based storage for Expo applications with directory support.
+
+[extension-storage](/tree/extension-storage) - Browser extension-specific storage using Chrome's storage API.
+
+[file-system-api](/tree/file-system-api) - Modern web browser API for accessing the file system in PWAs (progressive web apps).
+
+[single-file](/tree/single-file) - Node.js implementation that stores all state in a single JSON file. (from the original `valtio-persist` libarary)
+
+[multi-file](/tree/multi-file) - Node.js implementation that stores each state key in a separate file. (from the original `valtio-persist` library)
+
+[secure-storage](/tree/secure-storage) - Encrypted storage for sensitive data in mobile apps using Expo or React Native.
+
+[sqllite](/tree/sqllite) - Relational database storage using SQLite for more complex data relationships.
+
 ## License
 
 MIT
@@ -270,3 +282,7 @@ MIT
 ## Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Thank you
+
+A big shout and thank you to [Noitidart](https://github.com/Noitidart) who created the original `valtio-persist` package and has graciously allowed the use of the name to the community.

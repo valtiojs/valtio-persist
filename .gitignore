@@ -23,5 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 
-.sandbox
-coverage
+.sandbox/*
+coverage/*

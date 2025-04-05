@@ -23,16 +23,6 @@
         "default": "./dist/index.js"
       }
     },
-    "./async-storage": {
-      "require": {
-        "types": "./dist/storage/asyncStorage.d.ts",
-        "default": "./dist/storage/asyncStorage.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/asyncStorage.d.ts",
-        "default": "./dist/storage/asyncStorage.js"
-      }
-    },
     "./expo-file-system": {
       "require": {
         "types": "./dist/storage/expoFileSystem.d.ts",
@@ -41,26 +31,6 @@
       "import": {
         "types": "./dist/storage/expoFileSystem.d.ts",
         "default": "./dist/storage/expoFileSystem.js"
-      }
-    },
-    "./extension-storage": {
-      "require": {
-        "types": "./dist/storage/extensionStorage.d.ts",
-        "default": "./dist/storage/extensionStorage.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/extensionStorage.d.ts",
-        "default": "./dist/storage/extensionStorage.js"
-      }
-    },
-    "./file-system-api": {
-      "require": {
-        "types": "./dist/storage/fileSystemApi.d.ts",
-        "default": "./dist/storage/fileSystemApi.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/fileSystemApi.d.ts",
-        "default": "./dist/storage/fileSystemApi.js"
       }
     },
     "./indexed-db": {
@@ -72,60 +42,13 @@
         "types": "./dist/storage/indexedDb.d.ts",
         "default": "./dist/storage/indexedDb.js"
       }
-    },
-    "./multi-file": {
-      "require": {
-        "types": "./dist/storage/multiFile.d.ts",
-        "default": "./dist/storage/multiFile.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/multiFile.d.ts",
-        "default": "./dist/storage/multiFile.js"
-      }
-    },
-    "./secure-storage": {
-      "require": {
-        "types": "./dist/storage/secureStorage.d.ts",
-        "default": "./dist/storage/secureStorage.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/secureStorage.d.ts",
-        "default": "./dist/storage/secureStorage.js"
-      }
-    },
-    "./single-file": {
-      "require": {
-        "types": "./dist/storage/singleFile.d.ts",
-        "default": "./dist/storage/singleFile.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/singleFile.d.ts",
-        "default": "./dist/storage/singleFile.js"
-      }
-    },
-    "./sqlite": {
-      "require": {
-        "types": "./dist/storage/sqlLite.d.ts",
-        "default": "./dist/storage/sqlLite.cjs"
-      },
-      "import": {
-        "types": "./dist/storage/sqlLite.d.ts",
-        "default": "./dist/storage/sqlLite.js"
-      }
     }
   },
   "tsup": {
     "entry": [
       "src/index.ts",
-      "src/storage/asyncStorage.ts",
       "src/storage/expoFileSystem.ts",
-      "src/storage/extensionStorage.ts",
-      "src/storage/fileSystemApi.ts",
-      "src/storage/indexedDb.ts",
-      "src/storage/multiFile.ts",
-      "src/storage/secureStorage.ts",
-      "src/storage/singleFile.ts",
-      "src/storage/sqlLite.ts"
+      "src/storage/indexedDb.ts"
     ],
     "format": [
       "cjs",

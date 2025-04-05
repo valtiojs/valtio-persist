@@ -18,7 +18,7 @@ export class MultiFileStrategy implements StorageStrategy {
 			require("node:path")
 		} catch (error) {
 			throw new Error(
-				"Node.js modules (node:fs/promises, path) not available. This strategy only works in Node.js environments.",
+				"Node.js modules (node:fs/promises, path) not available"
 			)
 		}
 	}

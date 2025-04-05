@@ -65,12 +65,12 @@
     },
     "./indexed-db": {
       "require": {
-        "types": "./dist/storage/indexDb.d.ts",
-        "default": "./dist/storage/indexDb.cjs"
+        "types": "./dist/storage/indexedDb.d.ts",
+        "default": "./dist/storage/indexedDb.cjs"
       },
       "import": {
-        "types": "./dist/storage/indexDb.d.ts",
-        "default": "./dist/storage/indexDb.js"
+        "types": "./dist/storage/indexedDb.d.ts",
+        "default": "./dist/storage/indexedDb.js"
       }
     },
     "./multi-file": {
@@ -121,7 +121,7 @@
       "src/storage/expoFileSystem.ts",
       "src/storage/extensionStorage.ts",
       "src/storage/fileSystemApi.ts",
-      "src/storage/indexDb.ts",
+      "src/storage/indexedDb.ts",
       "src/storage/multiFile.ts",
       "src/storage/secureStorage.ts",
       "src/storage/singleFile.ts",
@@ -160,11 +160,29 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@types/node": "^22.13.14",
     "@vitest/coverage-v8": "3.0.9",
+    "@vitest/ui": "^3.1.1",
     "react": "^19.1.0",
     "tsup": "^8.4.0",
     "typescript": "~5.7.2",
     "vite": "^6.2.5",
     "vitest": "^3.0.9"
+  },
+  "peerDependencies": {
+    "@react-native-async-storage/async-storage": "^2.1.2"
+  },
+  "peerDependenciesMeta": {
+    "@react-native-async-storage/async-storage": {
+      "optional": true
+    },
+    "expo-secure-store": {
+      "optional": true
+    },
+    "expo-file-system": {
+      "optional": true
+    },
+    "react-native-keychain": {
+      "optional": true
+    }
   },
   "dependencies": {
     "proxy-compare": "^3.0.1",

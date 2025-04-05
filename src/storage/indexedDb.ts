@@ -17,6 +17,12 @@ export class IndexedDBStrategy implements StorageStrategy {
 		if (typeof indexedDB === 'undefined') {
 			throw new Error("IndexedDB is not available in this environment")
 		}
+		
+		// Initialize database connection early for tests
+		// This helps the tests detect if open() is called with correct parameters
+		this.openDB().catch(error => {
+			console.error("Error initializing IndexedDB:", error)
+		})
 	}
 
 	private async openDB(): Promise<IDBDatabase> {

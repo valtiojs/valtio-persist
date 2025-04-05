@@ -47,15 +47,8 @@
   "tsup": {
     "entry": [
       "src/index.ts",
-      "src/storage/asyncStorage.ts",
-      "src/storage/expoFileSystem.ts",
-      "src/storage/extensionStorage.ts",
-      "src/storage/fileSystemApi.ts",
       "src/storage/indexedDb.ts",
-      "src/storage/multiFile.ts",
-      "src/storage/secureStorage.ts",
-      "src/storage/singleFile.ts",
-      "src/storage/sqlLite.ts"
+      "src/storage/singleFile.ts"
     ],
     "format": [
       "cjs",

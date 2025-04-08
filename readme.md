@@ -103,6 +103,11 @@ Current list of available storage strategies. You can find others that are still
 
 ### Merge Strategies
 Choose how to merge stored state with the initialState.
+
+The default merge strategy doesn't check for any non-serializable types which in turn is very fast.
+If you're just store simple objects, use this strategy.
+
+The deepMerge strategy will go through the object and account for unserializable types and store them as best it can.
 ```typescript
 import { persist } from 'valtio-persist'
 import { DefaultMergeStrategy, DeepMergeStrategy } from 'valtio-persist'
@@ -122,34 +127,7 @@ const { store: deepStore } = await persist(
 )
 ```
 
-### Custom Serialization
-You can customize how to handle serialization and deserialization.
-```typescript
-import { persist } from 'valtio-persist'
-import type { SerializationStrategy } from 'valtio-persist'
-import type { Snapshot } from 'valtio'
-
-// Create a custom serialization strategy
-class CompressedJSONStrategy implements SerializationStrategy<any> {
-  serialize(state: Snapshot<any>): string {
-    // Add compression, encryption, etc.
-    return btoa(JSON.stringify(state))
-  }
-
-  deserialize(data: string): any {
-    return JSON.parse(atob(data))
-  }
-}
-
-const { store } = await persist(
-  { secret: 'sensitive data' },
-  'encrypted-store',
-  { serializationStrategy: CompressedJSONStrategy }
-)
-```
-
 ### Conditional Persistence
-
 ```typescript
 import { persist } from 'valtio-persist'
 

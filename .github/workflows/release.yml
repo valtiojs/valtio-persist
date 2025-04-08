@@ -25,7 +25,7 @@ jobs:
       - run: pnpm run build
       
       - name: Publish to NPM
-        run: npx semantic-release
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

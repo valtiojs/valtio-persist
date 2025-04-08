@@ -1,3 +1,8 @@
+![NPM Version](https://img.shields.io/npm/v/valtio-persist?style=flat-square&color=%2313c2c2)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/valtiojs/valtio-persist/test.yml?style=flat-square&color=%2313c2c2)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/valtio-persist?style=flat-square&color=%2313c2c2)
+![NPM License](https://img.shields.io/npm/l/valtio-persist?style=flat-square&color=%2313c2c2)
+
 # valtio-persist
 
 A persistence layer for [valtio](https://github.com/pmndrs/valtio) that allows you to save and restore state to various storage backends.

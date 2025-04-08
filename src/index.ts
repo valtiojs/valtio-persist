@@ -34,8 +34,6 @@ interface PersistOptions<T extends object> {
 	shouldPersist?: (prevState: Snapshot<T>, nextState: Snapshot<T>) => boolean
 	// Time in milliseconds to debounce persistence operations
 	debounceTime?: number
-	// Automatically restore state when loaded
-	restoreStateOnInit?: boolean
 	// history enabled
 	history?: HistoryOptions<T>
 }
@@ -69,7 +67,6 @@ export async function persist<T extends object>(
 		mergeStrategy: DefaultMergeStrategy,
 		shouldPersist: () => true,
 		debounceTime: 100,
-		restoreStateOnInit: true,
 	}
 
 	const o = { ...defaultOptions, ...options }
@@ -99,7 +96,7 @@ export async function persist<T extends object>(
 
 	const serializer = new o.serializationStrategy()
 	const merger = new o.mergeStrategy()
-	const { shouldPersist, debounceTime, restoreStateOnInit } = o
+	const { shouldPersist, debounceTime } = o
 
 	const data = isSyncStorage(storage)
 		? storage.get(key) || null
@@ -189,7 +186,7 @@ export async function persist<T extends object>(
 				: undefined
 
 			if (mergedState) {
-				Object.assign(store, mergedState)
+				updateStore(store, mergedState)
 				return true
 			}
 

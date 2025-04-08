@@ -193,7 +193,6 @@ const { store } = await persist(
     storageStrategy: SessionStorageStrategy,
     mergeStrategy: DeepMergeStrategy,
     debounceTime: 200,
-    restoreStateOnInit: true,
     shouldPersist: (prev, next) => true
   }
 )

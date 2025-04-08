@@ -3,8 +3,8 @@ import type { StorageStrategy } from "../types"
 /**
  * IndexedDB storage strategy implementation
  */
-export class IndexedDBStrategy implements StorageStrategy {
-	public isSync = false
+export class IndexedDBStrategy implements StorageStrategy<true> {
+	public isAsync = true as const
 	private readonly dbName: string
 	private readonly storeName: string
 	private db: IDBDatabase | null = null
@@ -12,15 +12,15 @@ export class IndexedDBStrategy implements StorageStrategy {
 	constructor(dbName = "valtio-persist", storeName = "states") {
 		this.dbName = dbName
 		this.storeName = storeName
-		
+
 		// Check if running in a browser environment with IndexedDB support
-		if (typeof indexedDB === 'undefined') {
+		if (typeof indexedDB === "undefined") {
 			throw new Error("IndexedDB is not available in this environment")
 		}
-		
+
 		// Initialize database connection early for tests
 		// This helps the tests detect if open() is called with correct parameters
-		this.openDB().catch(error => {
+		this.openDB().catch((error) => {
 			console.error("Error initializing IndexedDB:", error)
 		})
 	}

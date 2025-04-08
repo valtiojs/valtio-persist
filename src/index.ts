@@ -40,11 +40,29 @@ interface PersistOptions<T extends object> {
 	history?: HistoryOptions<T>
 }
 
-export function persist<T extends object>(
+const isSyncStorage = (
+	storage: StorageStrategy<boolean>,
+): storage is StorageStrategy<false> => {
+	return !storage.isAsync
+}
+
+const isSyncSerializer = <T>(
+	serializer: SerializationStrategy<T, boolean>,
+): serializer is SerializationStrategy<T, false> => {
+	return !serializer.isAsync
+}
+
+const isSyncMerger = <T>(
+	merger: MergeStrategy<T, boolean>,
+): merger is MergeStrategy<T, false> => {
+	return !merger.isAsync
+}
+
+export async function persist<T extends object>(
 	initialState: T,
 	key: string,
 	options?: PersistOptions<T>,
-): PersistResult<T> {
+): Promise<PersistResult<T>> {
 	const defaultOptions = {
 		storageStrategy: LocalStorageStrategy,
 		serializationStrategy: JSONSerializationStrategy,
@@ -79,47 +97,32 @@ export function persist<T extends object>(
 		},
 	})
 
-	const { serialize, deserialize } = new o.serializationStrategy()
-	const { merge } = new o.mergeStrategy()
+	const serializer = new o.serializationStrategy()
+	const merger = new o.mergeStrategy()
 	const { shouldPersist, debounceTime, restoreStateOnInit } = o
 
-	// Create the store with initial state
-	let storeState = initialState
+	const data = isSyncStorage(storage)
+		? storage.get(key) || null
+		: (await storage.get(key)) || null
 
-	// Handle synchronous restoration if available and requested
-	if (restoreStateOnInit && storage.syncGet) {
-		const storedData = storage.syncGet(key)
-		if (storedData) {
-			const storedState = deserialize(storedData)
-			storeState = merge(initialState, storedState)
-		}
-	}
+	const storedState = data
+		? isSyncSerializer(serializer)
+			? serializer.deserialize(data) || null
+			: (await serializer.deserialize(data)) || null
+		: null
 
-	// Create the proxy with our potentially restored state
-	const store = proxy(storeState)
+	const mergedState = storedState
+		? isSyncMerger(merger)
+			? merger.merge(initialState, storedState) || null
+			: (await merger.merge(initialState, storedState)) || null
+		: undefined
 
-	// Handle asynchronous restoration if needed
-	if (restoreStateOnInit && !storage.syncGet) {
-		// Start async restoration
-		storage
-			.get(key)
-			.then((storedData: string | null) => {
-				if (storedData) {
-					const storedState = deserialize(storedData)
-					const mergedState = merge(initialState, storedState)
-					// Update the already created store with the merged state
-					updateStore(store, mergedState)
-				}
-			})
-			.catch((err: Error) => {
-				console.error("Failed to restore state:", err)
-			})
-	}
+	const store = proxy<T>(mergedState)
 
 	let previousState = snapshot(store)
 
 	// Create the persist function - modified to respect shouldPersist even for manual calls
-	const persistData = () => {
+	const persistData = async () => {
 		const currentState = snapshot(store)
 
 		// Add this check to respect shouldPersist for manual calls
@@ -127,15 +130,19 @@ export function persist<T extends object>(
 			return Promise.resolve() // Don't persist if shouldPersist returns false
 		}
 
-		const serialized = serialize(currentState)
+		const serialized = isSyncSerializer(serializer)
+			? serializer.serialize(currentState)
+			: await serializer.serialize(currentState)
 
-		// Use sync or async depending on what's available
-		if (storage.syncSet) {
-			storage.syncSet(key, serialized)
+		if (isSyncStorage(storage)) {
+			// Now we have a definite string type for serialized
+			const syncStorage = storage as StorageStrategy<false>
+			syncStorage.set(key, serialized)
 			return Promise.resolve()
 		}
 
-		return storage.set(key, serialized)
+		const asyncStorage = storage as StorageStrategy<true>
+		return asyncStorage.set(key, serialized)
 	}
 
 	// Set up persistence
@@ -157,15 +164,35 @@ export function persist<T extends object>(
 	return {
 		store,
 		persist: persistData,
-		clear: () => storage.remove(key),
+		clear: async () => {
+			if (isSyncStorage(storage)) {
+				storage.remove(key)
+				return Promise.resolve()
+			}
+			return storage.remove(key)
+		},
 		restore: async () => {
-			const storedData = await storage.get(key)
-			if (storedData) {
-				const storedState = deserialize(storedData)
-				const mergedState = merge(initialState, storedState)
+			const data = isSyncStorage(storage)
+				? storage.get(key) || null
+				: (await storage.get(key)) || null
+
+			const storedState = data
+				? isSyncSerializer(serializer)
+					? serializer.deserialize(data) || null
+					: (await serializer.deserialize(data)) || null
+				: null
+
+			const mergedState = storedState
+				? isSyncMerger(merger)
+					? merger.merge(initialState, storedState) || null
+					: (await merger.merge(initialState, storedState)) || null
+				: undefined
+
+			if (mergedState) {
 				Object.assign(store, mergedState)
 				return true
 			}
+
 			return false
 		},
 	}

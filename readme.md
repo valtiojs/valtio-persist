@@ -38,7 +38,7 @@ interface State {
 }
 
 // Create a persisted store
-const { store } = persist<State>(
+const { store } = await persist<State>(
   // Initial state
   { 
     count: 0, 
@@ -64,7 +64,7 @@ store.user = { name: 'John', loggedIn: true }
 import { persist, LocalStorageStrategy } from 'valtio-persist'
 
 // Use localStorage (default)
-const { store: localStore } = persist(
+const { store: localStore } = await persist(
   { count: 0 },
   'local-store',
   { storageStrategy: LocalStorageStrategy }
@@ -77,7 +77,7 @@ LocalStorageStrategy is the default and is provided within the main `valtio-pers
 import { persist } from 'valtio-persist'
 import { IndexedDbStrategy } from 'valtio-persist/indexed-db'
 
-const { store } = persist(
+const { store } = await persist(
   { count: 0 },
   'my-indexdb-store',
   { storageStrategy: IndexedDbStrategy }
@@ -108,14 +108,14 @@ import { persist } from 'valtio-persist'
 import { DefaultMergeStrategy, DeepMergeStrategy } from 'valtio-persist'
 
 // Use default (shallow) merge strategy
-const { store: defaultStore } = persist(
+const { store: defaultStore } = await persist(
   { count: 0, nested: { value: 'default' } },
   'default-merge',
   { mergeStrategy: DefaultMergeStrategy }
 )
 
 // Use deep merge strategy for nested objects
-const { store: deepStore } = persist(
+const { store: deepStore } = await persist(
   { count: 0, nested: { value: 'default', other: true } },
   'deep-merge',
   { mergeStrategy: DeepMergeStrategy }
@@ -141,7 +141,7 @@ class CompressedJSONStrategy implements SerializationStrategy<any> {
   }
 }
 
-const { store } = persist(
+const { store } = await persist(
   { secret: 'sensitive data' },
   'encrypted-store',
   { serializationStrategy: CompressedJSONStrategy }
@@ -154,7 +154,7 @@ const { store } = persist(
 import { persist } from 'valtio-persist'
 
 // Only persist when specific conditions are met
-const { store } = persist(
+const { store } = await persist(
   { count: 0, saving: false },
   'conditional-store',
   {
@@ -171,7 +171,7 @@ const { store } = persist(
 import { persist } from 'valtio-persist'
 
 // Set custom debounce time (default is 100ms)
-const { store } = persist(
+const { store } = await persist(
   { count: 0 },
   'debounced-store',
   { debounceTime: 500 } // Wait 500ms after state changes before persisting
@@ -184,7 +184,7 @@ Restoration and persistence are automatically handled for you, but you can manua
 import { persist } from 'valtio-persist'
 
 // Get manual control functions
-const { store, persist: persistStore, restore, clear } = persist(
+const { store, persist: persistStore, restore, clear } = await persist(
   { count: 0 },
   'manual-store'
 )
@@ -208,7 +208,7 @@ await clear()
 import { persist } from 'valtio-persist'
 import { SessionStorageStrategy, DeepMergeStrategy } from 'valtio-persist'
 
-const { store } = persist(
+const { store } = await persist(
   { count: 0 },
   'storage-key',
   {
@@ -236,7 +236,7 @@ interface UserState {
 }
 
 // Type-safe persisted store
-const { store } = persist<UserState>(
+const { store } = await persist<UserState>(
   {
     name: '',
     loggedIn: false,

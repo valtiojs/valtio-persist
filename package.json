@@ -23,6 +23,16 @@
         "default": "./dist/index.js"
       }
     },
+    "./async-storage": {
+      "require": {
+        "types": "./dist/storage/asyncStorage.d.ts",
+        "default": "./dist/storage/asyncStorage.cjs"
+      },
+      "import": {
+        "types": "./dist/storage/asyncStorage.d.ts",
+        "default": "./dist/storage/asyncStorage.js"
+      }
+    },
     "./indexed-db": {
       "require": {
         "types": "./dist/storage/indexedDb.d.ts",
@@ -37,6 +47,7 @@
   "tsup": {
     "entry": [
       "src/index.ts",
+      "src/storage/asyncStorage.ts",
       "src/storage/indexedDb.ts"
     ],
     "format": [

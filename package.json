@@ -2,46 +2,74 @@
   "name": "valtio-persist",
   "description": "Persist valtio state",
   "version": "2.1.0",
-  "type": "module",
+  "type": "commonjs",
   "author": "Michael Sweeney <overthemike@gmail.com>",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/valtiojs/valtio-persist.git"
   },
   "source": "/src/index.ts",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "require": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.cjs"
+      "default": {
+        "types": "./index.d.ts",
+        "default": "./index.js"
       },
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
+        "types": "./index.d.ts",
+        "default": "./index.mjs"
       }
     },
     "./async-storage": {
-      "require": {
-        "types": "./dist/storage/asyncStorage.d.ts",
-        "default": "./dist/storage/asyncStorage.cjs"
+      "default": {
+        "types": "./storage/asyncStorage.d.ts",
+        "default": "./storage/asyncStorage.js"
       },
       "import": {
-        "types": "./dist/storage/asyncStorage.d.ts",
-        "default": "./dist/storage/asyncStorage.js"
+        "types": "./storage/asyncStorage.d.ts",
+        "default": "./storage/asyncStorage.mjs"
       }
     },
     "./indexed-db": {
-      "require": {
-        "types": "./dist/storage/indexedDb.d.ts",
-        "default": "./dist/storage/indexedDb.cjs"
+      "default": {
+        "types": "./storage/indexedDb.d.ts",
+        "default": "./storage/indexedDb.js"
       },
       "import": {
-        "types": "./dist/storage/indexedDb.d.ts",
-        "default": "./dist/storage/indexedDb.js"
+        "types": "./storage/indexedDb.d.ts",
+        "default": "./storage/indexedDb.mjs"
       }
+    },
+    "./*": {
+      "import": {
+        "types": "./esm/*.d.mts",
+        "default": "./esm/*.mjs"
+      },
+      "default": {
+        "types": "./*.d.ts",
+        "default": "./*.js"
+      }
+    }
+  },
+  "typesVersions": {
+    ">=4.5": {
+      "esm/*": [
+        "esm/*"
+      ],
+      "*": [
+        "*"
+      ]
+    },
+    "*": {
+      "esm/*": [
+        "ts_version_4.5_and_above_is_required.d.ts"
+      ],
+      "*": [
+        "ts_version_4.5_and_above_is_required.d.ts"
+      ]
     }
   },
   "tsup": {
@@ -71,6 +99,7 @@
     "src",
     "dist"
   ],
+  "sideEffects": false,
   "directories": {
     "test": "tests"
   },

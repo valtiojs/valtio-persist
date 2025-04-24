@@ -14,33 +14,33 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "default": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/index.js"
-      },
       "import": {
         "types": "./dist/index.d.ts",
         "default": "./dist/index.mjs"
+      },
+      "default": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
       }
     },
     "./async-storage": {
-      "default": {
-        "types": "./dist/storage/asyncStorage.d.ts",
-        "default": "./dist/storage/asyncStorage.js"
-      },
       "import": {
         "types": "./dist/storage/asyncStorage.d.ts",
         "default": "./dist/storage/asyncStorage.mjs"
+      },
+      "default": {
+        "types": "./dist/storage/asyncStorage.d.ts",
+        "default": "./dist/storage/asyncStorage.js"
       }
     },
     "./indexed-db": {
-      "default": {
-        "types": "./dist/storage/indexedDb.d.ts",
-        "default": "./dist/storage/indexedDb.js"
-      },
       "import": {
         "types": "./dist/storage/indexedDb.d.ts",
         "default": "./dist/storage/indexedDb.mjs"
+      },
+      "default": {
+        "types": "./dist/storage/indexedDb.d.ts",
+        "default": "./dist/storage/indexedDb.js"
       }
     },
     "./*": {

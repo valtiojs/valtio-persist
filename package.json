@@ -1,7 +1,7 @@
 {
   "name": "valtio-persist",
   "description": "Persist valtio state",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "type": "commonjs",
   "author": "Michael Sweeney <overthemike@gmail.com>",
   "repository": {

@@ -21,15 +21,15 @@ interface PersistOptions<T extends object> {
 	// How to store state - accepting a constructor
 	storageStrategy?: {
 		new (): StorageStrategy
-	}
+	} | StorageStrategy
 	// Controls how objects are serialized
 	serializationStrategy?: {
 		new (): SerializationStrategy<T>
-	}
+	} | SerializationStrategy<T>
 	// How to merge stored state with initial state
 	mergeStrategy?: {
 		new (): MergeStrategy<T>
-	}
+	} | MergeStrategy<T>
 	// Should the state be persisted at a moment in time
 	shouldPersist?: (prevState: Snapshot<T>, nextState: Snapshot<T>) => boolean
 	// Time in milliseconds to debounce persistence operations
@@ -71,8 +71,21 @@ export async function persist<T extends object>(
 
 	const o = { ...defaultOptions, ...options }
 
-	// Create instances from constructors
-	const storageInstance = new o.storageStrategy()
+	// Create instances from constructors or use provided instances
+  const storageInstance = 
+    typeof o.storageStrategy === 'function'
+      ? new o.storageStrategy()
+      : o.storageStrategy;
+
+  const serializer =
+    typeof o.serializationStrategy === 'function'
+      ? new o.serializationStrategy()
+      : o.serializationStrategy;
+
+  const merger =
+    typeof o.mergeStrategy === 'function'
+      ? new o.mergeStrategy()
+      : o.mergeStrategy;
 
 	// Create storage proxy to support legacy API with deprecation warnings
 	const storage = new Proxy(storageInstance, {
@@ -94,8 +107,6 @@ export async function persist<T extends object>(
 		},
 	})
 
-	const serializer = new o.serializationStrategy()
-	const merger = new o.mergeStrategy()
 	const { shouldPersist, debounceTime } = o
 
 	const data = isSyncStorage(storage)

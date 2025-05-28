@@ -80,12 +80,12 @@ LocalStorageStrategy is the default and is provided within the main `valtio-pers
 
 ```typescript
 import { persist } from 'valtio-persist'
-import { IndexedDbStrategy } from 'valtio-persist/indexed-db'
+import { IndexedDBStrategy } from 'valtio-persist/indexed-db'
 
 const { store } = await persist(
   { count: 0 },
   'my-indexdb-store',
-  { storageStrategy: IndexedDbStrategy }
+  { storageStrategy: IndexedDBStrategy }
 )
 ```
 

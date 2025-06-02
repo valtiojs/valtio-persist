@@ -125,7 +125,7 @@ export async function persist<T extends object>(
 			: (await merger.merge(initialState, storedState)) || null
 		: undefined
 
-	const store = proxy<T>(mergedState)
+	const store = proxy<T>(mergedState ?? initialState)
 
 	let previousState = snapshot(store)
 

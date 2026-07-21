@@ -175,6 +175,11 @@ export class DeepMergeStrategy<T> implements MergeStrategy<T, false> {
 			}
 		}
 
+		const targetProto = Object.getPrototypeOf(target)
+		if (targetProto !== null && Object.getPrototypeOf(result) !== targetProto) {
+			Object.setPrototypeOf(result, targetProto)
+		}
+
 		return result
 	}
 }
